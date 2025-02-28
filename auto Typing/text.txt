@@ -1,0 +1,49 @@
+class BeingZero {
+    public List<String> shortestRoutes2(int n, int m, int[][] edges, int[][] queries) {
+        // Implement your logic from here
+        List<String> ans = new ArrayList<>();
+        List<List<int[]>> g=new ArrayList<>();
+        for(int i=0;i<=n;i++)
+            g.add(new ArrayList<>());
+        for(int[] e:edges)
+            {
+                int u=e[0];
+                int v=e[1];
+                int w=e[2];
+                g.get(u).add(new int[]{v,w});
+                g.get(v).add(new int[]{u,w});
+            }
+        for(int[] q:queries)
+            {
+                int so=q[0];
+                int de=q[1];
+        int[] d=new int[n+1];
+        Arrays.fill(d,Integer.MAX_VALUE);
+        boolean vis[]=new boolean[n+1];
+        PriorityQueue<int[]> pq=new PriorityQueue<>(Comparator.comparingInt(a->a[1]));
+        pq.offer(new int[]{so,0});
+        d[so]=0;
+        while(!pq.isEmpty())
+            {
+                int[] cu=pq.poll();
+                int u=cu[0];
+                int di=cu[1];
+                if(vis[u])
+                    continue;
+                vis[u]=true;
+                for(int[] ne:g.get(u))
+                    {
+                        int v=ne[0];
+                        int w=ne[1];
+                        if(d[u]+w<d[v])
+                        {
+                            d[v]=d[u]+w;
+                            pq.offer(new int[]{v,d[v]});
+                        }
+                    }
+            }
+                ans.add(d[de]==Integer.MAX_VALUE?"-1":String.valueOf(d[de]));
+            }
+        return ans;
+    }
+}
