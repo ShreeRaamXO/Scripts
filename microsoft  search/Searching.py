@@ -22,7 +22,7 @@ def search_with_typing(phrases, min_delay=1, max_delay=10):
         time.sleep(random.randint(min_delay, max_delay))
 
 if __name__ == "__main__":
-    phrases = load_phrases("topPhrases.txt")
+    phrases = load_phrases(r"C:\Users\anuga\Documents\GitHub\Scripts\microsoft  search\topPhrases.txt")
     if phrases:
         open_edge()
         search_with_typing(phrases)
